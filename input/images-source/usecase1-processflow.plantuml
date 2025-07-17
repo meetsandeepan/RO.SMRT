@@ -1,12 +1,42 @@
 @startuml
-skinparam svgDimensionStyle false
+skinparam svgDimensionStyle true
 hide footbox
-participant "Client" as Client
-participant "Server" as Server
-activate "Client"
-"Client" -> "Server" : 1. Go Query [[domain-YY.html Domain-YY]]
-activate "Server"
-"Server" --> "Client" : 2. Go Response [[domain-YY.html Domain-YY]]
-deactivate "Client"
-deactivate "Server"
+
+actor "Clerk" as Clerk
+actor "Physician" as Physician
+actor "Planner" as Planner
+actor "Therapist" as Therapist
+
+participant "Treatment Managament System" as TMS
+participant "RO Resource Repo" as REPO
+participant "Radiation Oncology Information System" as ROIS
+participant "Archive" as ARCH
+
+activate "TMS"
+activate "ROIS"
+Clerk -> ROIS : //Register patient//
+Physician -> ROIS : //Enter diagnosis//
+TMS -> REPO : Query Patient [[RO-SMRT-xx.html RO-SMRT-xx]]
+TMS -> REPO : Query Treatment Strategy [[RO-SMRT-01.html RO-SMRT-01]]
+TMS -> REPO : Query Diagnosis [[RO-SMRT-xx.html RO-SMRT-xx]]
+Planner -> TMS : //Do detailed planning//
+Planner -> TMS : //Approve plan//
+TMS -> REPO : Report Planning Summary [[RO-SMRT-xx.html RO-SMRT-xx]]
+Physician -> ROIS : //Approve plan//
+ROIS -> REPO : Report Plan Approval [[RO-SMRT-xx.html RO-SMRT-xx]]
+Planner -> TMS : //Prepare plan for delivery//
+Planner -> TMS : //Approbe plan for delivery//
+TMS -> REPO : Report Treatment Approval [[RO-SMRT-xx.html RO-SMRT-xx]]
+Clerk -> ROIS : //Schedule appointments//
+ROIS -> REPO : Appointments scheduled [[RO-SMRT-xx.html RO-SMRT-xx]]
+Therapist -> TMS : //Start treatment session//
+TMS -> REPO : Report Treatment Session Status [[RO-SMRT-xx.html RO-SMRT-xx]]
+Therapist -> TMS : //Perform treatment session//
+Therapist -> TMS : //Close treatment session//
+TMS -> REPO : Report Treatment Session Status [[RO-SMRT-xx.html RO-SMRT-xx]]
+TMS -> REPO : Report Treatment Session Details [[RO-SMRT-xx.html RO-SMRT-xx]]
+Physician -> TMS : //Review and approve treatment session//
+TMS -> REPO : Report Treatment Session Approval [[RO-SMRT-xx.html RO-SMRT-xx]]
+deactivate "TMS"
+deactivate "ROIS"
 @enduml

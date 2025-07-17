@@ -1,59 +1,38 @@
 
-**TODO: Provide an end-user friendly overview of what the profile does for them. Keep it brief (a paragraph or two, up to a page). If extensive detail is needed, it should be included in Section XX.4- Use Cases.**
+The Shared Managament of Radiation Therapy (SMRT) Profile defines the workflow and content necessary to connect any machine-integrated Treatment Planning and Management System (TPMS) with a departmental Radiation Oncology Information System (ROIS).
+
+There is a need to be able to incorporate “island” treatment devices into a larger, departmental Radiation Oncology Information System (ROIS). Such "island" treatment devices often come with their local TPMS fully tailored to the capabilities of that treatment device. The Oncology department needs to be able to schedule, review and track treatment progress for these devices as they do for the other standard treatment devices of their treatment device fleet.
+
+This profile provides the mechanisms to exchange the required treatment planning and treatment delivery artefcats to support beforementioned scenarios and to allow a holistioc view of the on-going treatments in the ROIS.
 
 **TODO: Explicitly state whether this is a Workflow, Transport, or Content Module (or combination) profile. See the IHE Technical Frameworks General Introduction for definitions of these profile types. The IHE Technical Frameworks [General Introduction](https://profiles.ihe.net/GeneralIntro/). **
 
 <a name="actors-and-transactions"> </a>
 
-## 1:X.1 ToDo Actors, Transactions, and Content Modules
+## 1:X.1 SMRT Actors, Transactions, and Content Modules
 
-* Actors
-  * [Client](#client)
-  * [Server](#server)
-* Transactions
-  * [do domain-Y](domain-YY.html)
+This section defines the actors, transactions, and/or content modules in this profile. General
+definitions of actors are given in the Technical Frameworks General Introduction [Appendix A](https://profiles.ihe.net/GeneralIntro/ch-A.html).
+IHE Transactions can be found in the Technical Frameworks General Introduction [Appendix B](https://profiles.ihe.net/GeneralIntro/ch-B.html).
+Both appendices are located at <https://profiles.ihe.net/GeneralIntro/>.
 
-Actors and transactions are used to achieve this use-case...
-
-<figure>
-{%include usecase1-processflow.svg%}
-<figcaption><strong>Figure X.X.X.X-X: Use Case 1 Process Flow</strong></figcaption>
-</figure>
-<br clear="all">
-
-This section defines the actors and transactions in this implementation guide.
-
-Figure below shows the actors directly
-involved in the ToDo 
-Profile and the relevant transactions between them.
+Figure below shows the actors directly involved in the SMRT Profile and the relevant transactions between them. If needed for context, other actors that may be indirectly involved due to their participation
+in other related profiles are shown in dotted lines.
 
 <figure>
-{%include ActorsAndTransactions.svg%}
-<figcaption><strong>Figure XX.1-2: ToDo Actor Diagram</strong></figcaption>
+{% include ActorsAndTransactions.svg max-width="200px" %}
+<figcaption><strong>Figure XX.1-2: SMRT Actor Diagram</strong></figcaption>
 </figure>
-<br clear="all">
+<br clear="all"/>
 
-or for Content Profiles use this
-<figure>
-{%include docSharing.svg%}
-<figcaption><strong>Figure XX.1-2: ToDo Document Sharing Actor Diagram</strong></figcaption>
-</figure>
-<br clear="all">
+<p id ="tXX.1-1" class="tableTitle"><strong>Table XX.1-1: SMRT Profile - Actors and Transactions</strong></p>
 
-<p id ="tXX.1-1" class="tableTitle"><strong>Table XX.1-1: Profile Acronym Profile - Actors and Transactions</strong></p>
-
-| Actors  | Transactions  | Initiator or Responder | Optionality     | Reference                                  |
-|---------|---------------|------------------------|-----------------|--------------------------------------------|
-| Actor A | Transaction 1 |                        | R               | [Domain Acronym TF-2: 3.Y1](./domain-Y1.html) |
-|         | Transaction 2 |                        | R               | [Domain Acronym TF-2: 3.Y2](./domain-Y2.html) |
-| Actor F | Transaction 1 |                        | R               | [Domain Acronym TF-2: 3.Y1](./domain-Y1.html) |
-|         | Transaction 2 |                        | R               | [Domain Acronym TF-2: 3.Y2](./domain-Y2.html) |
-| Actor D | Transaction 1 |                        | R               | [Domain Acronym TF-2: 3.Y1](./domain-Y1.html) |
-| Actor E | Transaction 2 |                        | R               | [Domain Acronym TF-2: 3.Y2](./domain-Y2.html) |
-|         | Transaction 3 |                        | O ( See Note 1) | [Domain Acronym TF-2: 3.Y3](./domain-Y3.html) |
-|         | Transaction 4 |                        | O ( See Note 1) | [Domain Acronym TF-2: 3.Y4](./domain-Y4.html) |
-| Actor B | Transaction 3 |                        | R               | [Domain Acronym TF-2: 3.Y3](./domain-Y3.html) |
-|         | Transaction 4 |                        | O ( See Note 2) | [Domain Acronym TF-2: 3.Y4](./domain-Y4.html) |
+| Actors  | Transactions                         | Initiator or Responder | Optionality     | Reference                                  |
+|---------|--------------------------------------|------------------------|-----------------|--------------------------------------------|
+| ROIS    | RO-SMRT-01 Query Treatment Strategy  | Responder              | R (Note 1)      | [Domain Acronym TF-2: 3.Y1](./domain-Y1.html) |
+|         | RO-SMRT-02 Query Diagnosis           | Responder              | R               | [Domain Acronym TF-2: 3.Y2](./domain-Y2.html) |
+| TMS     | RO-SMRT-01 Query Treatment Strategy  | Initiator              | R               | [Domain Acronym TF-2: 3.Y1](./domain-Y1.html) |
+|         | RO-SMRT-02 Query Diagnosis           | Initiator              | R               | [Domain Acronym TF-2: 3.Y2](./domain-Y2.html) |
 {: .grid}
 
 Note 1: *For example, a note could specify that at least one of the
@@ -67,35 +46,43 @@ if Actor B supports XYZ Option, see Section XX.3.X.*
 ### XX.1.1 Actors
 The actors in this profile are described in more detail in the sections below.
 
-<a name="client"> </a>
+<a name="radiation-oncology-information-system"> </a>
 
-#### XX.1.1.1 Client
+#### XX.1.1.1 Radiation Oncology Information System (ROIS)
 
 The Client queries for blah meeting certain criteria and may retrieve selected blah.
 
-FHIR Capability Statement for [Client](CapabilityStatement-IHE.ToDo.client.html)
+FHIR Capability Statement for [ROIS](CapabilityStatement-IHE.SMRT.rois.html)
 
-<a name="server"> </a>
+<a name="treatment-management-system"> </a>
 
-#### XX.1.1.2 Server
+#### XX.1.1.2 Treatment Management System (TMS)
 
 The Sever processes query request from the Client actor.
 
-FHIR Capability Statement for [Server](CapabilityStatement-IHE.ToDo.server.html)
+FHIR Capability Statement for [TMS](CapabilityStatement-IHE.SMRT.tms.html)
+
+<a name="ro-resource-repo"> </a>
+
+#### XX.1.1.3 Radiation Oncology Resource Repository (REPO)
+
+The Client queries for blah meeting certain criteria and may retrieve selected blah.
+
+FHIR Capability Statement for [REPO](CapabilityStatement-IHE.SMRT.repo.html)
 
 ### XX.1.2 Transaction Descriptions
 
 The transactions in this profile are summarized in the sections below.
 
-#### XX.1.2.1 ToDo do transaction
+#### XX.1.2.1 Query Treatment Strategy ToDo do transaction
 
 This transaction is used to **do things**
 
-For more details see the detailed [transaction description](domain-YY.html)
+For more details see the detailed [transaction description](RO-SMRT-01.html)
 
 <a name="actor-options"> </a>
 
-## XX.2 ToDo Actor Options
+## XX.2 SMRT Actor Options
 
 Options that may be selected for each actor in this implementation guide, are listed in Table XX.2-1 below. Dependencies
 between options when applicable are specified in notes.
@@ -114,7 +101,7 @@ between options when applicable are specified in notes.
 
 <a name="required-groupings"> </a>
 
-## XX.3 ToDo Required Actor Groupings
+## XX.3 SMRT Required Actor Groupings
 
 *Describe any requirements for actors in this profile to be grouped
 with other actors.*
@@ -396,7 +383,7 @@ different.
 
 ### XX.4.2 Use Cases
 
-#### XX.4.2.1 Use Case \#1: simple name
+#### XX.4.2.1 Use Case \#1: Regular Treatment
 
 One or two sentence simple description of this particular use
 case.
@@ -431,22 +418,11 @@ actor from a different profile.
 
 Modify the following "Swimlane Diagram". You can use plantuml or mermaid. see details on [using mermaid in the IG publisher](https://build.fhir.org/ig/FHIR/ig-guidance/diagrams-mermaid.html). Mermaid [user guide online](https://mermaid.js.org/intro/getting-started.html).  Plantuml seems more stable, and does support clickable links on artifacts. Goto [plantuml.com](http://plantuml.com) for an online tool to draft plantuml files.
 
-```mermaid
-sequenceDiagram
-    participant Client
-    participant Server
-    activate Client
-    activate Server
-    Client ->> Server: 1. Go Query Domain-YY
-    Server -->> Client: 2. Go Response Domain-YY
-    deactivate Server
-    deactivate Client
-    activate Client
-    Client ->> Client: process response
-    deactivate Client
-```
-
-**Figure XX.4.2.2-1: Basic Process Flow in Profile Acronym Profile**:
+<figure>
+{% include usecase1-processflow.svg %}
+<figcaption><strong>XX.4.2.2-1: Basic Process Flow in SMRT Profile</strong></figcaption>
+</figure>
+<br clear="all"/>
 
 If process flow "swimlane" diagrams require additional explanation
 to clarify conditional flows, or flow variations need to be described
