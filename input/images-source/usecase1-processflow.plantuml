@@ -2,41 +2,42 @@
 skinparam svgDimensionStyle true
 hide footbox
 
-actor "Clerk" as Clerk
-actor "Physician" as Physician
-actor "Planner" as Planner
-actor "Therapist" as Therapist
+participant "HIS" as HIS
+participant "ROIS" as ROIS
+participant "TMS" as TMS
 
-participant "Treatment Managament System" as TMS
-participant "RO Resource Repo" as REPO
-participant "Radiation Oncology Information System" as ROIS
-participant "Archive" as ARCH
+== Patient Registration ==
+HIS -> ROIS : //(external) Register Patient//
+ROIS -> TMS : Sync Patient Demographics [[RO-SMRT-01.html RO-SMRT-01]]\n(demographics, encounter, photo)
+ROIS -> TMS : Sync Treatment Appointment [[RO-SMRT-01.html RO-SMRT-02]]
+note over ROIS, TMS: On change, ROIS updates demographics/appointments\nand notifies the TMS of patient-identifier changes.
 
-activate "TMS"
-activate "ROIS"
-Clerk -> ROIS : //Register patient//
-Physician -> ROIS : //Enter diagnosis//
-TMS -> REPO : Query Patient [[RO-SMRT-xx.html RO-SMRT-xx]]
-TMS -> REPO : Query Treatment Strategy [[RO-SMRT-01.html RO-SMRT-01]]
-TMS -> REPO : Query Diagnosis [[RO-SMRT-xx.html RO-SMRT-xx]]
-Planner -> TMS : //Do detailed planning//
-Planner -> TMS : //Approve plan//
-TMS -> REPO : Report Planning Summary [[RO-SMRT-xx.html RO-SMRT-xx]]
-Physician -> ROIS : //Approve plan//
-ROIS -> REPO : Report Plan Approval [[RO-SMRT-xx.html RO-SMRT-xx]]
-Planner -> TMS : //Prepare plan for delivery//
-Planner -> TMS : //Approbe plan for delivery//
-TMS -> REPO : Report Treatment Approval [[RO-SMRT-xx.html RO-SMRT-xx]]
-Clerk -> ROIS : //Schedule appointments//
-ROIS -> REPO : Appointments scheduled [[RO-SMRT-xx.html RO-SMRT-xx]]
-Therapist -> TMS : //Start treatment session//
-TMS -> REPO : Report Treatment Session Status [[RO-SMRT-xx.html RO-SMRT-xx]]
-Therapist -> TMS : //Perform treatment session//
-Therapist -> TMS : //Close treatment session//
-TMS -> REPO : Report Treatment Session Status [[RO-SMRT-xx.html RO-SMRT-xx]]
-TMS -> REPO : Report Treatment Session Details [[RO-SMRT-xx.html RO-SMRT-xx]]
-Physician -> TMS : //Review and approve treatment session//
-TMS -> REPO : Report Treatment Session Approval [[RO-SMRT-xx.html RO-SMRT-xx]]
-deactivate "TMS"
-deactivate "ROIS"
+== Treatment Planning ==
+opt Support Prescription Option
+  TMS -> ROIS : Retrieve Prescription Summary [[RO-SMRT-01.html RO-SMRT-03]]
+end
+TMS -> TMS : //Import & enrich plan//
+TMS -> ROIS : Report Planning Artifacts [[RO-SMRT-01.html RO-SMRT-04]]\n(FHIR message, refs DICOM)
+ROIS -> ROIS : //Retrieve RT Plan (DICOM)//
+
+== Treatment Approval ==
+ROIS -> ROIS : //Approve plan for delivery//
+ROIS -> TMS : Report Treatment Approval [[RO-SMRT-01.html RO-SMRT-05]]
+TMS -> ROIS : Report Planning Artifacts [[RO-SMRT-01.html RO-SMRT-04]]\n(delivery artifacts ready)
+ROIS -> ROIS : //Retrieve RT Plan (DICOM)//
+
+== Treatment Delivery ==
+ROIS -> TMS : Report Patient Check-in [[RO-SMRT-01.html RO-SMRT-06]]
+TMS -> TMS : //Deliver treatment session//
+TMS -> ROIS : Report Treatment Artifacts [[RO-SMRT-01.html RO-SMRT-07]]\n(FHIR message, refs DICOM)
+ROIS -> ROIS : //Retrieve RT Record (DICOM)//
+
+== Post-Treatment ==
+alt Image approved at TMS
+  TMS -> ROIS : Image Approval [[RO-SMRT-01.html RO-SMRT-08]]
+else Image approved at ROIS
+  ROIS -> ROIS : //Image Approval//
+end
+TMS -> ROIS : Report Treatment USCDI Data [[RO-SMRT-01.html RO-SMRT-09]]
+ROIS -> ROIS : //Track treatment progress//
 @enduml

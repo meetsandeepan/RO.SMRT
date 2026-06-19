@@ -6,8 +6,8 @@ id: ihe.ro.smrt
 canonical: https://profiles.ihe.net/RO/SMRT
 version: 0.0.1-current
 name: IHE_RO_SMRT
-title: "Shared Managament of Radiation Treatments"
-description: Defines the workflow and content necessary to connect any machine-integrated Treatment Management Systems (TMS) with a departmental Radiation Oncology Information System (ROIS) and Hospital-wide Information system (HIS)
+title: "Shared Management of Radiation Treatments"
+description: Defines the workflow and content necessary to connect any device-specific Treatment Management System (TMS) with a single departmental Radiation Oncology Information System (ROIS), enabling a holistic view of all ongoing treatments.
 releaseLabel: ci-build
 #releaseLabel: ballot
 #releaseLabel: trial-use
@@ -70,10 +70,10 @@ pages:
     title: 1:XX Shared Management of Radiation Therapy (SMRT) Volume 1
     generation: markdown
   RO-SMRT-01.md:
-    title: 2:3.YY Query Treatment Strategy [RO-SMRT-01]
+    title: 2:3.Y1 Sync Patient Demographics [RO-SMRT-01]
     generation: markdown
   domain-ZZ.md:
-    title: 3:?.ZZ Content one [Domain-ZZ]
+    title: 3:?.ZZ SMRT Content Modules [Domain-ZZ]
     generation: markdown
   testplan.md:
     title: "Test Plan"
@@ -99,9 +99,9 @@ menu:
     Security Considerations: volume-1.html#security-considerations
     Cross-Profile Considerations: volume-1.html#other-grouping
   Volume 2:
-    "Query Treatment Strategy [RO-SMRT-01]": RO-SMRT-01.html
+    "Sync Patient Demographics [RO-SMRT-01]": RO-SMRT-01.html
   Volume 3:
-    "Content one [Domain-ZZ]": domain-ZZ.html
+    "SMRT Content Modules [Domain-ZZ]": domain-ZZ.html
   Artifacts: artifacts.html
   Other:
     Changes to Other IHE Specifications: other.html

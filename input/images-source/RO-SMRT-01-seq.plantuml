@@ -1,12 +1,12 @@
 @startuml
 skinparam svgDimensionStyle true
 hide footbox
-participant "Requester" as Requester
-participant "Responder" as Responder
-activate Requester
-activate Responder
-Requester -> Responder : 1. Query Treatment Strategy ServiceRequests
-Responder --> Requester : 2. Return Treatment Strategy ServiceRequests Bundle
-deactivate Requester
-deactivate Responder
+participant "ROIS" as ROIS
+participant "TMS" as TMS
+activate ROIS
+activate TMS
+ROIS -> TMS : 1. Sync Patient Demographics\n(demographics, encounter, photo)
+ROIS -> TMS : 2. Demographic / appointment / identifier update
+deactivate ROIS
+deactivate TMS
 @enduml
