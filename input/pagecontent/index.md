@@ -22,15 +22,11 @@ This guide is organized into the following sections:
    1. [Cross Profile Considerations](volume-1.html#other-grouping)
    1. **TODO: point to the Volume 1 Appendix if there is one**
 2. Volume 2: Transaction Detail
-   1. [Sync Patient Demographics \[RO-SMRT-01\]](RO-SMRT-01.html)
-   1. [Sync Treatment Appointment \[RO-SMRT-02\]](RO-SMRT-02.html)
-   1. [Retrieve Prescription Summary \[RO-SMRT-03\]](RO-SMRT-03.html)
-   1. [Report Planning Artifacts \[RO-SMRT-04\]](RO-SMRT-04.html)
-   1. [Report Treatment Approval \[RO-SMRT-05\]](RO-SMRT-05.html)
-   1. [Report Patient Check-in \[RO-SMRT-06\]](RO-SMRT-06.html)
-   1. [Report Treatment Artifacts \[RO-SMRT-07\]](RO-SMRT-07.html)
-   1. [Image Approval \[RO-SMRT-08\]](RO-SMRT-08.html)
-   1. [Report Treatment USCDI Data \[RO-SMRT-09\]](RO-SMRT-09.html)
+   1. [Sync Patient Photo \[RO-SMRT-01\]](RO-SMRT-01.html)
+   1. [Report Planning Artifacts \[RO-SMRT-02\]](RO-SMRT-02.html)
+   1. [Report Treatment Approval \[RO-SMRT-03\]](RO-SMRT-03.html)
+   1. [Report Treatment Artifacts \[RO-SMRT-04\]](RO-SMRT-04.html)
+   1. [Report Image Review Results \[RO-SMRT-05\]](RO-SMRT-05.html)
 3. Volume 3: Metadata and Content
    1. [SMRT Content Modules](domain-ZZ.html)
 5. Other

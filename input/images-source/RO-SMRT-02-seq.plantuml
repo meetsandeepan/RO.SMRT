@@ -1,12 +1,13 @@
 @startuml
 skinparam svgDimensionStyle true
 hide footbox
-participant "ROIS" as ROIS
 participant "TMS" as TMS
-activate ROIS
+participant "ROIS" as ROIS
+participant "OST" as OST
 activate TMS
-ROIS -> TMS : 1. Sync Treatment Appointment\n(scheduled treatment fractions)
-ROIS -> TMS : 2. Appointment update / cancellation
-deactivate ROIS
+activate ROIS
+TMS -> ROIS : 1. Report Planning Artifacts\n(FHIR message, refs DICOM RT objects)
+ROIS -> OST : 2. Retrieve planning artefacts (DICOM)
 deactivate TMS
+deactivate ROIS
 @enduml

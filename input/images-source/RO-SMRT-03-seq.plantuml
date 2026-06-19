@@ -1,12 +1,12 @@
 @startuml
 skinparam svgDimensionStyle true
 hide footbox
-participant "TMS" as TMS
 participant "ROIS" as ROIS
-activate TMS
+participant "TMS" as TMS
 activate ROIS
-TMS -> ROIS : 1. Retrieve Prescription Summary request
-ROIS --> TMS : 2. Prescription Summary
-deactivate TMS
+activate TMS
+ROIS -> TMS : 1. Report Treatment Approval (FHIR message)
+TMS -> TMS : 2. Add approval to plan
 deactivate ROIS
+deactivate TMS
 @enduml

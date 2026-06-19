@@ -1,12 +1,11 @@
 @startuml
 skinparam svgDimensionStyle true
 hide footbox
-participant "ROIS" as ROIS
 participant "TMS" as TMS
-activate ROIS
+participant "ROIS" as ROIS
 activate TMS
-ROIS -> TMS : 1. Report Treatment Approval\n(FHIR message)
-TMS -> TMS : 2. Add approval to plan
-deactivate ROIS
+activate ROIS
+TMS -> ROIS : 1. Report Image Review Results (FHIR message)
 deactivate TMS
+deactivate ROIS
 @enduml

@@ -3,10 +3,11 @@ skinparam svgDimensionStyle true
 hide footbox
 participant "TMS" as TMS
 participant "ROIS" as ROIS
+participant "OST" as OST
 activate TMS
 activate ROIS
-TMS -> ROIS : 1. Report Planning Artifacts\n(FHIR message, refs DICOM RT objects)
-ROIS -> ROIS : 2. Retrieve required artifacts (DICOM)
+TMS -> ROIS : 1. Report Treatment Artifacts\n(FHIR message, refs DICOM: RT Record, RTSTRUCT, CT, RTDOSE)
+ROIS -> OST : 2. Retrieve treatment artefacts (DICOM)
 deactivate TMS
 deactivate ROIS
 @enduml
