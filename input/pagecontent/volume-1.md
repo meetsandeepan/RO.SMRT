@@ -32,7 +32,7 @@ The SMRT Profile defines two actors — the **Radiation Oncology Information Sys
 
 The transactions newly defined by this profile are FHIR-message transactions exchanged between the ROIS and the TMS, listed in Table X.1-1.
 
-<p id ="tXX.1-1" class="tableTitle"><strong>Table X.1-1: SMRT Profile - Actors and Transactions (defined by this profile)</strong></p>
+<p id ="tX.1-1" class="tableTitle"><strong>Table X.1-1: SMRT Profile - Actors and Transactions (defined by this profile)</strong></p>
 
 | Actors  | Transactions                            | Initiator or Responder | Optionality | Reference     |
 |---------|-----------------------------------------|------------------------|-------------|---------------|
@@ -50,7 +50,7 @@ The transactions newly defined by this profile are FHIR-message transactions exc
 
 To complete the workflow, SMRT actors are grouped with actors of other profiles and exchange the transactions listed in Table X.1-2. These are **not** defined by this profile; they are reused as-is.
 
-<p id ="tXX.1-2" class="tableTitle"><strong>Table X.1-2: SMRT Profile - Reused Transactions and Standards (via grouping)</strong></p>
+<p id ="tX.1-2" class="tableTitle"><strong>Table X.1-2: SMRT Profile - Reused Transactions and Standards (via grouping)</strong></p>
 
 | Exchange                                  | Standard / Transaction                                                | Direction   |
 |-------------------------------------------|-----------------------------------------------------------------------|-------------|
@@ -102,7 +102,7 @@ The transactions defined by this profile are summarized below. Detailed transact
 
 Options that may be selected for each actor in this profile are listed in Table X.2-1 below.
 
-<p id ="tXX.2-1" class="tableTitle"><strong>Table X.2-1: SMRT - Actors and Options</strong></p>
+<p id ="tX.2-1" class="tableTitle"><strong>Table X.2-1: SMRT - Actors and Options</strong></p>
 
 | Actor | Option Name                  | Reference     |
 |-------|------------------------------|---------------|
@@ -122,7 +122,7 @@ An actor from this profile (Column 1) shall implement all of the required transa
 
 To synchronize patient identity, encounters, scheduling, prescription, and imaging artifacts, the SMRT actors are grouped with actors of other profiles. The SMRT actors also exchange protected health information and therefore require the security and time groupings common to IHE profiles. The IHE-RO Technical Committee will confirm the final set of required groupings during ballot; the groupings below are the expected baseline.
 
-<p id ="tXX.3-1" class="tableTitle"><strong>Table X.3-1: SMRT - Required Actor Groupings</strong></p>
+<p id ="tX.3-1" class="tableTitle"><strong>Table X.3-1: SMRT - Required Actor Groupings</strong></p>
 
 | SMRT Actor | Grouping Condition | Actor(s) to be grouped with | Reference |
 |------------|--------------------|-----------------------------|-----------|
