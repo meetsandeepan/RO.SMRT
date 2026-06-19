@@ -5,39 +5,68 @@ hide footbox
 participant "HIS" as HIS
 participant "ROIS" as ROIS
 participant "TMS" as TMS
+participant "OST" as OST
 
 == Patient Registration ==
-HIS -> ROIS : //(external) Register Patient//
-ROIS -> TMS : Sync Patient Demographics [[RO-SMRT-01.html RO-SMRT-01]]\n(demographics, encounter, photo)
-ROIS -> TMS : Sync Treatment Appointment [[RO-SMRT-01.html RO-SMRT-02]]
-note over ROIS, TMS: On change, ROIS updates demographics/appointments\nand notifies the TMS of patient-identifier changes.
+HIS -> ROIS : //(external) Sync Patient Demographics: HL7v2 ADT//
+ROIS -> ROIS : //Assign Patient to TMS//
+ROIS -> TMS : //Sync Patient Demographics: HL7v2 ADT [ITI-30]//
+alt by reference
+  ROIS -> TMS : Sync Patient Photo [[RO-SMRT-01.html RO-SMRT-01]]\n(FHIR, refs SC Image)
+  TMS -> OST : //Retrieve Patient Photo (DICOM)//
+else by value
+  ROIS -> TMS : Sync Patient Photo [[RO-SMRT-01.html RO-SMRT-01]]\n(FHIR, Base64 image)
+end
+opt
+  ROIS -> TMS : //Sync Treatment Encounter: HL7v2 ADT [ITI-31]//
+end
+
+== Appointment Scheduling ==
+opt
+  ROIS -> ROIS : //Create Intent//
+end
+ROIS -> ROIS : //Schedule Treatment Appointments//
+ROIS -> TMS : //Sync Treatment Appointment: HL7v2 SIU//
 
 == Treatment Planning ==
-opt Support Prescription Option
-  TMS -> ROIS : Retrieve Prescription Summary [[RO-SMRT-01.html RO-SMRT-03]]
+opt Support Prescription Option (beyond MVP)
+  ROIS -> ROIS : //Create Prescription//
+  TMS -> ROIS : //Retrieve Prescription Summary [XRTS-08]//
 end
-TMS -> TMS : //Import & enrich plan//
-TMS -> ROIS : Report Planning Artifacts [[RO-SMRT-01.html RO-SMRT-04]]\n(FHIR message, refs DICOM)
-ROIS -> ROIS : //Retrieve RT Plan (DICOM)//
+alt
+  TMS -> TMS : //Import approved treatment plan//
+else
+  TMS -> TMS : //Import unapproved plan & Approve//
+end
+TMS -> TMS : //Enrich Plan//
+TMS -> ROIS : Report Planning Artifacts [[RO-SMRT-02.html RO-SMRT-02]]\n(FHIR, refs DICOM: RTP,[CT],[RTS],[RTD])
+ROIS -> OST : //Retrieve Planning Artefacts (DICOM)//
 
-== Treatment Approval ==
-ROIS -> ROIS : //Approve plan for delivery//
-ROIS -> TMS : Report Treatment Approval [[RO-SMRT-01.html RO-SMRT-05]]
-TMS -> ROIS : Report Planning Artifacts [[RO-SMRT-01.html RO-SMRT-04]]\n(delivery artifacts ready)
-ROIS -> ROIS : //Retrieve RT Plan (DICOM)//
+== Approve for Treatment ==
+ROIS -> ROIS : //Approve Treatment//
+ROIS -> TMS : Report Treatment Approval [[RO-SMRT-03.html RO-SMRT-03]]\n(FHIR)
+TMS -> TMS : //Add Approval to Plan//
+TMS -> ROIS : Report Planning Artifacts [[RO-SMRT-02.html RO-SMRT-02]]\n(final delivery plan)
+ROIS -> OST : //Retrieve Planning Artefacts (RTP): DICOM//
+
+== Session Scheduling ==
+TMS -> TMS : //Add Treatment session / fractions//
 
 == Treatment Delivery ==
-ROIS -> TMS : Report Patient Check-in [[RO-SMRT-01.html RO-SMRT-06]]
-TMS -> TMS : //Deliver treatment session//
-TMS -> ROIS : Report Treatment Artifacts [[RO-SMRT-01.html RO-SMRT-07]]\n(FHIR message, refs DICOM)
-ROIS -> ROIS : //Retrieve RT Record (DICOM)//
+ROIS -> TMS : //Report Patient Check-in: HL7v2 SIU//
+TMS -> TMS : //Deliver Treatment//
 
-== Post-Treatment ==
-alt Image approved at TMS
-  TMS -> ROIS : Image Approval [[RO-SMRT-01.html RO-SMRT-08]]
-else Image approved at ROIS
-  ROIS -> ROIS : //Image Approval//
+== Report Treatment Artifacts ==
+TMS -> ROIS : Report Treatment Artifacts [[RO-SMRT-04.html RO-SMRT-04]]\n(FHIR, refs DICOM: RTRECORD,RTSTRUCT,CT,RTDOSE)
+ROIS -> OST : //Retrieve Treatment Artefacts (DICOM)//
+ROIS -> ROIS : //Track Treatment Progress//
+
+== Post-Treatment Activities ==
+alt Image review at TMS
+  TMS -> ROIS : Report Image Review Results [[RO-SMRT-05.html RO-SMRT-05]]\n(FHIR)
+else Image review at ROIS
+  ROIS -> ROIS : //Review Images//
 end
-TMS -> ROIS : Report Treatment USCDI Data [[RO-SMRT-01.html RO-SMRT-09]]
-ROIS -> ROIS : //Track treatment progress//
+ROIS -> HIS : //(external) Share Treatment Summary: XRTS/HL7v2 ORU//
+ROIS -> HIS : //(external) Billing: HL7v2 DFT//
 @enduml

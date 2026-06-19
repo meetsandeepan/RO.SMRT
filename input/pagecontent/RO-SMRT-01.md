@@ -1,51 +1,49 @@
-This section corresponds to transaction [RO-SMRT-01] of the IHE-RO Technical Framework. Transaction [RO-SMRT-01] is used by the ROIS and the TMS to synchronize patient demographic information.
+This section corresponds to transaction [RO-SMRT-01] of the IHE-RO Technical Framework. Transaction [RO-SMRT-01] is used by the ROIS to send the patient photo to the TMS.
 
-> **Editor's Note (provisional):** This transaction is in development. The transaction identifier and section number are provisional pending assignment by the IHE-RO Technical Committee. Detailed message semantics (including the use of HL7v2 ADT and/or FHIR messaging, and the patient photo by-value/by-reference handling) will be authored in a subsequent revision. See the [Open Issues](issues.html).
+> **Editor's Note (provisional):** This transaction is in development. The transaction identifier and section number are provisional pending assignment by the IHE-RO Technical Committee. The FHIR message structure will be authored in a subsequent revision. See the [Open Issues](issues.html).
 
 ### Scope
 
-This transaction is used by the ROIS to send patient demographic information — including patient encounter information and the patient photo — to the TMS, and to notify the TMS of subsequent demographic or patient-identifier changes, so that the TMS can prepare for and manage the treatment workflow for that patient.
+This transaction is used by the ROIS to send the patient photo (patient ID photo) to the TMS in a FHIR message, so that the TMS can display the photo for patient verification at the treatment device. The photo may be conveyed either **by value** (a Base64-encoded image, e.g., JPEG/PNG/TIFF/BMP) or **by reference** to a DICOM Secondary Capture (SC) image that the TMS subsequently retrieves via DICOM.
+
+Patient demographics and encounters are synchronized separately by grouping with IHE-ITI Patient Administration Management ([ITI-30] / [ITI-31]); see [Volume 1, Table X.1-2](volume-1.html#actors-and-transactions).
 
 ### Actors Roles
 
-The roles in this transaction are defined in the following table and may be played by the actors shown here:
-
 <p id ="t3.Y1.2-1" class="tableTitle"><strong>Table 2:3.Y1.2-1: Actor Roles</strong></p>
 
-| Role      | Description                                              | Actor(s)                                          |
-|-----------|---------------------------------------------------------|---------------------------------------------------|
-| Initiator | Sends patient demographics and notifies of changes      | [ROIS](volume-1.html#radiation-oncology-information-system) |
-| Responder | Receives and applies patient demographics               | [TMS](volume-1.html#treatment-management-system)  |
+| Role      | Description                          | Actor(s)                                          |
+|-----------|--------------------------------------|---------------------------------------------------|
+| Initiator | Sends the patient photo              | [ROIS](volume-1.html#radiation-oncology-information-system) |
+| Responder | Receives (and may retrieve) the photo | [TMS](volume-1.html#treatment-management-system)  |
 {: .grid}
 
 ### Referenced Standards
 
-- **FHIR-R4** [HL7 FHIR Release 4.0]({{site.data.fhir.path}})
-- **HL7 V2** patient administration (ADT) messaging — *to be confirmed in a subsequent revision*
+- **FHIR-R4** [HL7 FHIR Release 4.0]({{site.data.fhir.path}}) — FHIR messaging
+- **DICOM** Secondary Capture image and retrieval (when sent by reference)
 
 ### Interactions
 
 <figure>
 {%include RO-SMRT-01-seq.svg%}
-<figcaption><strong>Figure 2:3.Y1.4-1: Sync Patient Demographics Interaction Diagram</strong></figcaption>
+<figcaption><strong>Figure 2:3.Y1.4-1: Sync Patient Photo Interaction Diagram</strong></figcaption>
 </figure>
 <br clear="all"/>
 
-#### Sync Patient Demographics Message
-
-The ROIS sends patient demographic information to the TMS.
+#### Sync Patient Photo Message
 
 ##### Trigger Events
 
-A patient is registered in the ROIS, or the patient demographics, patient encounter, patient photo, or patient identifier are subsequently modified in the ROIS.
+A patient is assigned to the TMS, or the patient photo is added or updated in the ROIS.
 
 ##### Message Semantics
 
-*To be specified.* The message conveys patient demographics, patient encounter information, and the patient photo (either by value, or by reference for subsequent retrieval from the ROIS).
+*To be specified.* The FHIR message conveys the patient photo either by value (Base64-encoded image) or by reference to a DICOM SC image. See content definitions in [Volume 3](domain-ZZ.html).
 
 ##### Expected Actions
 
-The Responder (TMS) applies the received demographics, encounter information, and photo, and reflects subsequent updates — including patient-identifier changes — so that its local record remains synchronized with the ROIS.
+The Responder (TMS) stores the patient photo, retrieving it via DICOM when it was sent by reference, and associates it with the corresponding patient for verification at the treatment device.
 
 ### Security Considerations
 

@@ -3,10 +3,15 @@ skinparam svgDimensionStyle true
 hide footbox
 participant "ROIS" as ROIS
 participant "TMS" as TMS
+participant "OST" as OST
 activate ROIS
 activate TMS
-ROIS -> TMS : 1. Sync Patient Demographics\n(demographics, encounter, photo)
-ROIS -> TMS : 2. Demographic / appointment / identifier update
+alt by reference
+  ROIS -> TMS : 1a. Sync Patient Photo (FHIR, refs SC Image)
+  TMS -> OST : 1b. Retrieve Patient Photo (DICOM)
+else by value
+  ROIS -> TMS : 1. Sync Patient Photo (FHIR, Base64 image)
+end
 deactivate ROIS
 deactivate TMS
 @enduml
