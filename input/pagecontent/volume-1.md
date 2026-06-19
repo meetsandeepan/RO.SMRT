@@ -70,11 +70,15 @@ The Radiation Oncology Information System (ROIS) is the single, centralized depa
 - **Treatment Approval** — serving as the system where clinical approval for treatment is given and communicating that authorization to the TMS, acting as the gatekeeper for proceeding with treatment delivery.
 - **Artifact Consolidation and Oversight** — providing a centralized point of access to treatment-related artifacts; receiving notifications from the TMS when planning and treatment delivery artifacts are available, selectively retrieving them as needed for clinical review and progress tracking, and optionally serving as the long-term archive for retrieved data.
 
+Requirements CapabilityStatement for [ROIS](CapabilityStatement-IHE.SMRT.rois.html).
+
 <a name="treatment-management-system"> </a>
 
 #### X.1.1.2 Treatment Management System (TMS)
 
 The Treatment Management System (TMS) is a device-specific subsystem for treatment execution. It coordinates the treatment planning activities and the detailed management of the delivery of treatment sessions on its associated device(s). It reports the status and results of these activities back to the ROIS, thereby contributing to the patient's authoritative treatment course record. A TMS may be a standalone system or may be integrated with (or embedded in) a treatment device that also bundles the Treatment Planning System (TPS) and Treatment Delivery Device (TDD).
+
+Requirements CapabilityStatement for [TMS](CapabilityStatement-IHE.SMRT.tms.html).
 
 ### X.1.2 Transaction Descriptions
 

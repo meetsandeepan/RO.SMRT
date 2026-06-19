@@ -72,6 +72,30 @@ pages:
   RO-SMRT-01.md:
     title: 2:3.Y1 Sync Patient Demographics [RO-SMRT-01]
     generation: markdown
+  RO-SMRT-02.md:
+    title: 2:3.Y2 Sync Treatment Appointment [RO-SMRT-02]
+    generation: markdown
+  RO-SMRT-03.md:
+    title: 2:3.Y3 Retrieve Prescription Summary [RO-SMRT-03]
+    generation: markdown
+  RO-SMRT-04.md:
+    title: 2:3.Y4 Report Planning Artifacts [RO-SMRT-04]
+    generation: markdown
+  RO-SMRT-05.md:
+    title: 2:3.Y5 Report Treatment Approval [RO-SMRT-05]
+    generation: markdown
+  RO-SMRT-06.md:
+    title: 2:3.Y6 Report Patient Check-in [RO-SMRT-06]
+    generation: markdown
+  RO-SMRT-07.md:
+    title: 2:3.Y7 Report Treatment Artifacts [RO-SMRT-07]
+    generation: markdown
+  RO-SMRT-08.md:
+    title: 2:3.Y8 Image Approval [RO-SMRT-08]
+    generation: markdown
+  RO-SMRT-09.md:
+    title: 2:3.Y9 Report Treatment USCDI Data [RO-SMRT-09]
+    generation: markdown
   domain-ZZ.md:
     title: 3:?.ZZ SMRT Content Modules [Domain-ZZ]
     generation: markdown
@@ -100,6 +124,14 @@ menu:
     Cross-Profile Considerations: volume-1.html#other-grouping
   Volume 2:
     "Sync Patient Demographics [RO-SMRT-01]": RO-SMRT-01.html
+    "Sync Treatment Appointment [RO-SMRT-02]": RO-SMRT-02.html
+    "Retrieve Prescription Summary [RO-SMRT-03]": RO-SMRT-03.html
+    "Report Planning Artifacts [RO-SMRT-04]": RO-SMRT-04.html
+    "Report Treatment Approval [RO-SMRT-05]": RO-SMRT-05.html
+    "Report Patient Check-in [RO-SMRT-06]": RO-SMRT-06.html
+    "Report Treatment Artifacts [RO-SMRT-07]": RO-SMRT-07.html
+    "Image Approval [RO-SMRT-08]": RO-SMRT-08.html
+    "Report Treatment USCDI Data [RO-SMRT-09]": RO-SMRT-09.html
   Volume 3:
     "SMRT Content Modules [Domain-ZZ]": domain-ZZ.html
   Artifacts: artifacts.html

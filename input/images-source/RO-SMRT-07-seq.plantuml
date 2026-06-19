@@ -1,0 +1,12 @@
+@startuml
+skinparam svgDimensionStyle true
+hide footbox
+participant "TMS" as TMS
+participant "ROIS" as ROIS
+activate TMS
+activate ROIS
+TMS -> ROIS : 1. Report Treatment Artifacts\n(FHIR message, refs DICOM RT Record)
+ROIS -> ROIS : 2. Retrieve required artifacts (DICOM)
+deactivate TMS
+deactivate ROIS
+@enduml

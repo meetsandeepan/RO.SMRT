@@ -1,0 +1,11 @@
+@startuml
+skinparam svgDimensionStyle true
+hide footbox
+participant "TMS" as TMS
+participant "ROIS" as ROIS
+activate TMS
+activate ROIS
+TMS -> ROIS : 1. Image Approval (FHIR message)
+deactivate TMS
+deactivate ROIS
+@enduml
