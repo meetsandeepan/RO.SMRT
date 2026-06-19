@@ -85,7 +85,7 @@ pages:
     title: 2:3.Y5 Report Image Review Results [RO-SMRT-05]
     generation: markdown
   domain-ZZ.md:
-    title: 3:?.ZZ SMRT Content Modules [Domain-ZZ]
+    title: 3:?.ZZ SMRT Content Modules
     generation: markdown
   testplan.md:
     title: "Test Plan"
@@ -117,7 +117,7 @@ menu:
     "Report Treatment Artifacts [RO-SMRT-04]": RO-SMRT-04.html
     "Report Image Review Results [RO-SMRT-05]": RO-SMRT-05.html
   Volume 3:
-    "SMRT Content Modules [Domain-ZZ]": domain-ZZ.html
+    "SMRT Content Modules": domain-ZZ.html
   Artifacts: artifacts.html
   Other:
     Changes to Other IHE Specifications: other.html
