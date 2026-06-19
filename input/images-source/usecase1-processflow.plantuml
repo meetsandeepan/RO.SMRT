@@ -1,72 +1,91 @@
 @startuml
 skinparam svgDimensionStyle true
 hide footbox
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam sequenceArrowThickness 1.5
+skinparam sequenceParticipantBorderThickness 2
 
-participant "HIS" as HIS
-participant "ROIS" as ROIS
-participant "TMS" as TMS
-participant "OST" as OST
+skinparam participant {
+  BackgroundColor #D6EAF8
+  BorderColor #1A5276
+  FontStyle bold
+}
+skinparam sequence {
+  LifeLineBorderColor #1A5276
+  LifeLineBackgroundColor #EBF5FB
+  DividerBackgroundColor #E8EEF4
+  DividerBorderColor #7F8C8D
+  DividerFontStyle bold
+  DividerFontColor #333333
+  GroupBackgroundColor #F0F7FF
+  GroupBorderColor #5D8AA8
+}
+skinparam note {
+  BackgroundColor #FDFEFE
+  BorderColor #BFC9CA
+  FontSize 10
+}
+
+participant "Hospital\nInformation\nSystem (HIS)" as HIS #F4F6F6
+participant "Radiation Oncology\nInformation System\n(ROIS)" as ROIS
+participant "Treatment\nManagement\nSystem (TMS)" as TMS
+participant "Object Store\n(OST)" as OST #F4F6F6
 
 == Patient Registration ==
-HIS -> ROIS : //(external) Sync Patient Demographics: HL7v2 ADT//
-ROIS -> ROIS : //Assign Patient to TMS//
-ROIS -> TMS : //Sync Patient Demographics: HL7v2 ADT [ITI-30]//
-alt by reference
-  ROIS -> TMS : Sync Patient Photo [[RO-SMRT-01.html RO-SMRT-01]]\n(FHIR, refs SC Image)
-  TMS -> OST : //Retrieve Patient Photo (DICOM)//
-else by value
-  ROIS -> TMS : Sync Patient Photo [[RO-SMRT-01.html RO-SMRT-01]]\n(FHIR, Base64 image)
+HIS -[#95A5A6]-> ROIS : <i><color:#95A5A6>Sync Patient Demographics: HL7v2 ADT</color></i>
+ROIS -> ROIS : Assign Patient to TMS
+ROIS -[#95A5A6]-> TMS : <i><color:#95A5A6>Sync Patient Demographics [ITI-30]</color></i>
+alt Photo by reference
+  ROIS -[#1A5276]-> TMS : **Sync Patient Photo [RO-SMRT-01]**\n<i>(FHIR message — reference to DICOM SC image)</i>
+  TMS -[#CA6F1E]-> OST : <i><color:#CA6F1E>Retrieve Patient Photo (DICOM)</color></i>
+else Photo by value
+  ROIS -[#1A5276]-> TMS : **Sync Patient Photo [RO-SMRT-01]**\n<i>(FHIR message — Base64-encoded image)</i>
 end
 opt
-  ROIS -> TMS : //Sync Treatment Encounter: HL7v2 ADT [ITI-31]//
+  ROIS -[#95A5A6]-> TMS : <i><color:#95A5A6>Sync Treatment Encounter [ITI-31]</color></i>
 end
 
 == Appointment Scheduling ==
-opt
-  ROIS -> ROIS : //Create Intent//
-end
-ROIS -> ROIS : //Schedule Treatment Appointments//
-ROIS -> TMS : //Sync Treatment Appointment: HL7v2 SIU//
+ROIS -> ROIS : Schedule Treatment Appointments
+ROIS -[#95A5A6]-> TMS : <i><color:#95A5A6>Sync Treatment Appointment: HL7v2 SIU</color></i>
 
 == Treatment Planning ==
 opt Support Prescription Option (beyond MVP)
-  ROIS -> ROIS : //Create Prescription//
-  TMS -> ROIS : //Retrieve Prescription Summary [XRTS-08]//
+  ROIS -> ROIS : Create Prescription
+  TMS -[#95A5A6]-> ROIS : <i><color:#95A5A6>Retrieve Prescription Summary [XRTS-08]</color></i>
 end
-alt
-  TMS -> TMS : //Import approved treatment plan//
-else
-  TMS -> TMS : //Import unapproved plan & Approve//
-end
-TMS -> TMS : //Enrich Plan//
-TMS -> ROIS : Report Planning Artifacts [[RO-SMRT-02.html RO-SMRT-02]]\n(FHIR, refs DICOM: RTP,[CT],[RTS],[RTD])
-ROIS -> OST : //Retrieve Planning Artefacts (DICOM)//
+TMS -> TMS : Import & Approve Plan; Enrich Plan
+TMS -[#1A5276]-> ROIS : **Report Planning Artifacts [RO-SMRT-02]**\n<i>(FHIR — refs DICOM: RT Plan, [CT, RT Structure Set, RT Dose])</i>
+ROIS --[#1A5276]--> TMS : Acknowledgement
+ROIS -[#CA6F1E]-> OST : <i><color:#CA6F1E>Retrieve Planning Artifacts (DICOM)</color></i>
 
-== Approve for Treatment ==
-ROIS -> ROIS : //Approve Treatment//
-ROIS -> TMS : Report Treatment Approval [[RO-SMRT-03.html RO-SMRT-03]]\n(FHIR)
-TMS -> TMS : //Add Approval to Plan//
-TMS -> ROIS : Report Planning Artifacts [[RO-SMRT-02.html RO-SMRT-02]]\n(final delivery plan)
-ROIS -> OST : //Retrieve Planning Artefacts (RTP): DICOM//
-
-== Session Scheduling ==
-TMS -> TMS : //Add Treatment session / fractions//
+== Treatment Approval ==
+ROIS -> ROIS : Approve Treatment
+ROIS -[#1A5276]-> TMS : **Report Treatment Approval [RO-SMRT-03]**\n<i>(FHIR message)</i>
+TMS -> TMS : Add Approval to Plan
+TMS --[#1A5276]--> ROIS : Acknowledgement
+TMS -[#1A5276]-> ROIS : **Report Planning Artifacts [RO-SMRT-02]**\n<i>(final delivery plan)</i>
+ROIS --[#1A5276]--> TMS : Acknowledgement
+ROIS -[#CA6F1E]-> OST : <i><color:#CA6F1E>Retrieve Final Delivery Plan (DICOM)</color></i>
 
 == Treatment Delivery ==
-ROIS -> TMS : //Report Patient Check-in: HL7v2 SIU//
-TMS -> TMS : //Deliver Treatment//
+ROIS -[#95A5A6]-> TMS : <i><color:#95A5A6>Report Patient Check-in: HL7v2 SIU</color></i>
+TMS -> TMS : Deliver Treatment
 
 == Report Treatment Artifacts ==
-TMS -> ROIS : Report Treatment Artifacts [[RO-SMRT-04.html RO-SMRT-04]]\n(FHIR, refs DICOM: RTRECORD,RTSTRUCT,CT,RTDOSE)
-ROIS -> OST : //Retrieve Treatment Artefacts (DICOM)//
-ROIS -> ROIS : //Track Treatment Progress//
+TMS -[#1A5276]-> ROIS : **Report Treatment Artifacts [RO-SMRT-04]**\n<i>(FHIR — refs DICOM: RT Record, RT Structure Set, CT, RT Dose)</i>
+ROIS --[#1A5276]--> TMS : Acknowledgement
+ROIS -[#CA6F1E]-> OST : <i><color:#CA6F1E>Retrieve Treatment Artifacts (DICOM)</color></i>
+ROIS -> ROIS : Track Treatment Progress
 
-== Post-Treatment Activities ==
+== Post-Treatment ==
 alt Image review at TMS
-  TMS -> ROIS : Report Image Review Results [[RO-SMRT-05.html RO-SMRT-05]]\n(FHIR)
+  TMS -[#1A5276]-> ROIS : **Report Image Review Results [RO-SMRT-05]**\n<i>(FHIR message)</i>
+  ROIS --[#1A5276]--> TMS : Acknowledgement
 else Image review at ROIS
-  ROIS -> ROIS : //Review Images//
+  ROIS -> ROIS : Review Images
 end
-ROIS -> HIS : //(external) Share Treatment Summary: XRTS/HL7v2 ORU//
-ROIS -> HIS : //(external) Billing: HL7v2 DFT//
+ROIS -[#95A5A6]-> HIS : <i><color:#95A5A6>Share Treatment Summary (XRTS / HL7v2 ORU)</color></i>
+ROIS -[#95A5A6]-> HIS : <i><color:#95A5A6>Billing (HL7v2 DFT)</color></i>
 @enduml

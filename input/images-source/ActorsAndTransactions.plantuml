@@ -1,19 +1,56 @@
 @startuml
-' with below line the SVG is not scaled/zoomed to fit the outer frame
 skinparam svgDimensionStyle true
-'skinparam linetype ortho
-skinparam linetype polyline
-'skinparam ranksep 100
-'scale max 200 width
+left to right direction
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam ArrowThickness 1.5
+skinparam ArrowFontSize 10
 
-agent "[[#radiation-oncology-information-system Radiation Oncology Information System (ROIS)]]" as ROIS
-agent "[[#treatment-management-system Treatment Management System (TMS)]]" as TMS
-agent "Hospital Information\nSystem (HIS)" as HIS #line.dashed
-agent "Object Store\n(OST)" as OST #line.dashed
+skinparam component {
+  BackgroundColor<<smrt>> #D6EAF8
+  BorderColor<<smrt>> #1A5276
+  BorderThickness<<smrt>> 2
+  FontStyle<<smrt>> bold
+  BackgroundColor<<ext>> #F4F6F6
+  BorderColor<<ext>> #95A5A6
+  FontColor<<ext>> #555555
+  BorderThickness<<ext>> 1
+}
 
-HIS .down.> ROIS : //(external) Sync Patient Demographics: HL7v2 ADT//
-ROIS -down-> TMS : [[RO-SMRT-01.html Sync Patient Photo ~[RO-SMRT-01~]]] \n [[RO-SMRT-03.html Report Treatment Approval ~[RO-SMRT-03~]]] \n //Sync Demographics ~[ITI-30~] / Encounter ~[ITI-31~]// \n //Sync Appointment / Check-in: HL7v2 SIU//
-TMS -up-> ROIS : [[RO-SMRT-02.html Report Planning Artifacts ~[RO-SMRT-02~]]] \n [[RO-SMRT-04.html Report Treatment Artifacts ~[RO-SMRT-04~]]] \n [[RO-SMRT-05.html Report Image Review Results ~[RO-SMRT-05~]]] \n //Retrieve Prescription Summary ~[XRTS-08~] (option)//
-ROIS .down.> OST : //(reused) Retrieve Artifacts:\nDICOM C-MOVE/C-GET/QIDO-RS/WADO-RS//
-ROIS .down.> HIS : //(external) Treatment Summary: ORU/XRTS\nBilling: HL7v2 DFT//
+component "Radiation Oncology\nInformation System (ROIS)" <<smrt>> as ROIS
+component "Treatment Management\nSystem (TMS)" <<smrt>> as TMS
+component "Hospital Information\nSystem (HIS)" <<ext>> as HIS
+component "Object Store (OST)" <<ext>> as OST
+
+' External inbound
+HIS .[#95A5A6].> ROIS : <color:#95A5A6><i>Patient Demographics: HL7v2 ADT</i></color>
+
+' SMRT-defined FHIR transactions: ROIS → TMS
+ROIS -[#1A5276]-> TMS : Sync Patient Photo [RO-SMRT-01]
+ROIS -[#1A5276]-> TMS : Report Treatment Approval [RO-SMRT-03]
+
+' Reused transactions: ROIS → TMS
+ROIS .[#95A5A6].> TMS : <color:#95A5A6><i>Patient Demographics [ITI-30]</i></color>
+ROIS .[#95A5A6].> TMS : <color:#95A5A6><i>Encounter [ITI-31] (opt.)</i></color>
+ROIS .[#95A5A6].> TMS : <color:#95A5A6><i>Appointment / Check-in: HL7v2 SIU</i></color>
+
+' SMRT-defined FHIR transactions: TMS → ROIS
+TMS -[#1A5276]-> ROIS : Report Planning Artifacts [RO-SMRT-02]
+TMS -[#1A5276]-> ROIS : Report Treatment Artifacts [RO-SMRT-04]
+TMS -[#1A5276]-> ROIS : Report Image Review Results [RO-SMRT-05]
+
+' DICOM artifact retrieval
+ROIS .[#CA6F1E].> OST : <color:#CA6F1E><i>Retrieve Artifacts: DICOM C-MOVE / WADO-RS</i></color>
+
+' External outbound
+ROIS .[#95A5A6].> HIS : <color:#95A5A6><i>Treatment Summary (XRTS/ORU) / Billing (DFT)</i></color>
+
+legend right
+  |= Symbol |= Meaning |
+  |<back:#D6EAF8>   <b>Actor</b>   </back>| SMRT Actor |
+  |<back:#F4F6F6>   Actor   </back>| External / Context Actor |
+  |<color:#1A5276>——►</color>| SMRT-defined FHIR transaction |
+  |<color:#CA6F1E>- - ►</color>| DICOM artifact retrieval |
+  |<color:#95A5A6>- - ►</color>| External / reused transaction |
+endlegend
 @enduml
