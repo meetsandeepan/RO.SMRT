@@ -1,0 +1,28 @@
+# ihe.ro.smrt#0.0.2-current: Shared Management of Radiation Treatments
+
+## Pages
+
+* [1:X Shared Management of Radiation Therapy (SMRT) Home](index.md)
+* [Artifacts Summary](artifacts.md)
+* [Test Plan](testplan.md)
+* [Significant Changes and Issues](issues.md)
+* [1:X Shared Management of Radiation Therapy (SMRT) Volume 1](volume-1.md)
+* [2:3.Y1 Sync Patient Photo [RO-SMRT-01]](RO-SMRT-01.md)
+* [2:3.Y2 Report Planning Artifacts [RO-SMRT-02]](RO-SMRT-02.md)
+* [2:3.Y3 Report Treatment Approval [RO-SMRT-03]](RO-SMRT-03.md)
+* [Changes to Other IHE Specifications](other.md)
+* [Download and Analysis](download.md)
+* [2:3.Y4 Report Treatment Artifacts [RO-SMRT-04]](RO-SMRT-04.md)
+* [2:3.Y5 Report Image Review Results [RO-SMRT-05]](RO-SMRT-05.md)
+* [3:Z.ZZ SMRT Content Modules](domain-ZZ.md)
+
+## Resources
+
+### CapabilityStatements
+
+* [SMRT Radiation Oncology Information System (ROIS)](CapabilityStatement-IHE.SMRT.rois.md)
+* [SMRT Treatment Management System (TMS)](CapabilityStatement-IHE.SMRT.tms.md)
+
+### ImplementationGuides
+
+* [Shared Management of Radiation Treatments](index.md)

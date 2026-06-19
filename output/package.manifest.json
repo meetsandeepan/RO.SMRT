@@ -1,0 +1,7 @@
+{
+  "version" : "0.0.2-current",
+  "fhirVersion" : ["4.0.1"],
+  "date" : "20260618235834",
+  "name" : "ihe.ro.smrt",
+  "jurisdiction" : "http://unstats.un.org/unsd/methods/m49/m49.htm#001"
+}

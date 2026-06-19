@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<CapabilityStatement xmlns="http://hl7.org/fhir">
+  <id value="IHE.SMRT.rois"/>
+  <text>
+    <status value="extensions"/><div xmlns="http://www.w3.org/1999/xhtml"><p class="res-header-id"><b>Generated Narrative: CapabilityStatement IHE.SMRT.rois</b></p><a name="IHE.SMRT.rois"> </a><a name="hcIHE.SMRT.rois"> </a><h2 id="title">SMRT Radiation Oncology Information System (ROIS)</h2><ul><li>Implementation Guide Version: 0.0.2-current </li><li>FHIR Version: 4.0.1 </li><li>Supported Formats: <code>application/fhir+xml</code>, <code>application/fhir+json</code></li><li>Published on: 2026-06-19 </li><li>Published by: IHE Radiation Oncology Technical Committee </li></ul><blockquote class="impl-note"><p><strong>Note to Implementers: FHIR Capabilities</strong></p><p>Any FHIR capability may be 'allowed' by the system unless explicitly marked as 'SHALL NOT'. A few items are marked as MAY in the Implementation Guide to highlight their potential relevance to the use case.</p></blockquote><h2 id="messaging">FHIR Messaging Capabilities</h2><div class="panel panel-default"><div class="panel-heading"><h3 id="messaging_1" class="panel-title">Messaging Capability</h3></div><div class="panel-body"/></div></div>
+  </text>
+  <url value="https://profiles.ihe.net/RO/SMRT/CapabilityStatement/IHE.SMRT.rois"/>
+  <version value="0.0.2-current"/>
+  <name value="IHE_SMRT_rois"/>
+  <title value="SMRT Radiation Oncology Information System (ROIS)"/>
+  <status value="draft"/>
+  <experimental value="false"/>
+  <date value="2026-06-19"/>
+  <publisher value="IHE Radiation Oncology Technical Committee"/>
+  <contact>
+    <telecom>
+      <system value="url"/>
+      <value value="https://www.ihe.net/ihe_domains/radiation_oncology/"/>
+    </telecom>
+  </contact>
+  <contact>
+    <telecom>
+      <system value="email"/>
+      <value value="jill@aapm.org"/>
+    </telecom>
+  </contact>
+  <contact>
+    <name value="IHE Radiation Oncology Technical Committee"/>
+    <telecom>
+      <system value="email"/>
+      <value value="jill@aapm.org"/>
+    </telecom>
+  </contact>
+  <description value="Requirements CapabilityStatement for the **Radiation Oncology Information System (ROIS)** actor of the IHE-RO Shared Management of Radiation Treatments (SMRT) Profile.&#xA;&#xA;The ROIS is the central departmental system. For the FHIR-message transactions defined by this profile it:&#xA;&#xA;- **initiates** Sync Patient Photo [RO-SMRT-01] and Report Treatment Approval [RO-SMRT-03];&#xA;- **responds to** Report Planning Artifacts [RO-SMRT-02], Report Treatment Artifacts [RO-SMRT-04], and Report Image Review Results [RO-SMRT-05].&#xA;&#xA;To complete the workflow, the ROIS is grouped with actors of other profiles for patient demographics/encounters (IHE-ITI PAM [ITI-30]/[ITI-31], HL7 V2 ADT), scheduling and check-in (HL7 V2 SIU), prescription summary (IHE-RO XRTS [XRTS-08], with the Support Prescription Option), and DICOM retrieval of the referenced RT objects (C-MOVE/C-GET/QIDO-RS/WADO-RS). Those exchanges are out of scope for this FHIR CapabilityStatement."/>
+  <jurisdiction>
+    <coding>
+      <system value="http://unstats.un.org/unsd/methods/m49/m49.htm"/>
+      <code value="001"/>
+    </coding>
+  </jurisdiction>
+  <kind value="requirements"/>
+  <fhirVersion value="4.0.1"/>
+  <format value="application/fhir+xml"/>
+  <format value="application/fhir+json"/>
+  <messaging>
+    <documentation value="The ROIS exchanges SMRT FHIR messages with the TMS. The specific message definitions are provisional; see Volume 2 transaction definitions and the [Open Issues](issues.html).&#xA;&#xA;Patient and appointment synchronization may be carried over HL7 V2 (ADT/SIU); artifact retrieval uses DICOM. Those exchanges are out of scope for this FHIR CapabilityStatement."/>
+  </messaging>
+</CapabilityStatement>

@@ -1,0 +1,49 @@
+{
+  "resourceType" : "CapabilityStatement",
+  "id" : "IHE.SMRT.tms",
+  "text" : {
+    "status" : "extensions",
+    "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p class=\"res-header-id\"><b>Generated Narrative: CapabilityStatement IHE.SMRT.tms</b></p><a name=\"IHE.SMRT.tms\"> </a><a name=\"hcIHE.SMRT.tms\"> </a><h2 id=\"title\">SMRT Treatment Management System (TMS)</h2><ul><li>Implementation Guide Version: 0.0.2-current </li><li>FHIR Version: 4.0.1 </li><li>Supported Formats: <code>application/fhir+xml</code>, <code>application/fhir+json</code></li><li>Published on: 2026-06-19 </li><li>Published by: IHE Radiation Oncology Technical Committee </li></ul><blockquote class=\"impl-note\"><p><strong>Note to Implementers: FHIR Capabilities</strong></p><p>Any FHIR capability may be 'allowed' by the system unless explicitly marked as 'SHALL NOT'. A few items are marked as MAY in the Implementation Guide to highlight their potential relevance to the use case.</p></blockquote><h2 id=\"messaging\">FHIR Messaging Capabilities</h2><div class=\"panel panel-default\"><div class=\"panel-heading\"><h3 id=\"messaging_1\" class=\"panel-title\">Messaging Capability</h3></div><div class=\"panel-body\"/></div></div>"
+  },
+  "url" : "https://profiles.ihe.net/RO/SMRT/CapabilityStatement/IHE.SMRT.tms",
+  "version" : "0.0.2-current",
+  "name" : "IHE_SMRT_tms",
+  "title" : "SMRT Treatment Management System (TMS)",
+  "status" : "draft",
+  "experimental" : false,
+  "date" : "2026-06-19",
+  "publisher" : "IHE Radiation Oncology Technical Committee",
+  "contact" : [{
+    "telecom" : [{
+      "system" : "url",
+      "value" : "https://www.ihe.net/ihe_domains/radiation_oncology/"
+    }]
+  },
+  {
+    "telecom" : [{
+      "system" : "email",
+      "value" : "jill@aapm.org"
+    }]
+  },
+  {
+    "name" : "IHE Radiation Oncology Technical Committee",
+    "telecom" : [{
+      "system" : "email",
+      "value" : "jill@aapm.org"
+    }]
+  }],
+  "description" : "Requirements CapabilityStatement for the **Treatment Management System (TMS)** actor of the IHE-RO Shared Management of Radiation Treatments (SMRT) Profile.\n\nThe TMS is the device-specific subsystem. For the FHIR-message transactions defined by this profile it:\n\n- **responds to** Sync Patient Photo [RO-SMRT-01] and Report Treatment Approval [RO-SMRT-03];\n- **initiates** Report Planning Artifacts [RO-SMRT-02], Report Treatment Artifacts [RO-SMRT-04], and Report Image Review Results [RO-SMRT-05].\n\nTo complete the workflow, the TMS is grouped with actors of other profiles for patient demographics/encounters (IHE-ITI PAM [ITI-30]/[ITI-31], HL7 V2 ADT), scheduling and check-in (HL7 V2 SIU), and prescription summary (IHE-RO XRTS [XRTS-08], with the Support Prescription Option). Those exchanges are out of scope for this FHIR CapabilityStatement.",
+  "jurisdiction" : [{
+    "coding" : [{
+      "system" : "http://unstats.un.org/unsd/methods/m49/m49.htm",
+      "code" : "001"
+    }]
+  }],
+  "kind" : "requirements",
+  "fhirVersion" : "4.0.1",
+  "format" : ["application/fhir+xml",
+  "application/fhir+json"],
+  "messaging" : [{
+    "documentation" : "The TMS exchanges SMRT FHIR messages with the ROIS. The specific message definitions are provisional; see Volume 2 transaction definitions and the [Open Issues](issues.html).\n\nPatient and appointment synchronization may be carried over HL7 V2 (ADT/SIU). Those exchanges are out of scope for this FHIR CapabilityStatement."
+  }]
+}

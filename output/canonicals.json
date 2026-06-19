@@ -1,0 +1,21 @@
+[{
+  "id" : "IHE.SMRT.rois",
+  "type" : "CapabilityStatement",
+  "url" : "https://profiles.ihe.net/RO/SMRT/CapabilityStatement/IHE.SMRT.rois",
+  "version" : "0.0.2-current",
+  "name" : "IHE_SMRT_rois"
+},
+{
+  "id" : "IHE.SMRT.tms",
+  "type" : "CapabilityStatement",
+  "url" : "https://profiles.ihe.net/RO/SMRT/CapabilityStatement/IHE.SMRT.tms",
+  "version" : "0.0.2-current",
+  "name" : "IHE_SMRT_tms"
+},
+{
+  "id" : "ihe.ro.smrt",
+  "type" : "ImplementationGuide",
+  "url" : "https://profiles.ihe.net/RO/SMRT/ImplementationGuide/ihe.ro.smrt",
+  "version" : "0.0.2-current",
+  "name" : "IHE_RO_SMRT"
+}]
