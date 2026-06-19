@@ -4,7 +4,7 @@
 # e.g. ihe.iti.mhds, or ihe.iti.basicaudit
 id: ihe.ro.smrt
 canonical: https://profiles.ihe.net/RO/SMRT
-version: 0.0.1-current
+version: 0.0.2-current
 name: IHE_RO_SMRT
 title: "Shared Management of Radiation Treatments"
 description: Defines the workflow and content necessary to connect any device-specific Treatment Management System (TMS) with a single departmental Radiation Oncology Information System (ROIS), enabling a holistic view of all ongoing treatments.
