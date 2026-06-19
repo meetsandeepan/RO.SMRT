@@ -62,7 +62,7 @@ To complete the workflow, SMRT actors are grouped with actors of other profiles 
 | Retrieve Patient Photo / Planning / Treatment Artifacts | DICOM C-MOVE / C-GET / QIDO-RS / WADO-RS                  | ROIS/TMS → OST |
 {: .grid}
 
-> **Editor's Note (provisional):** The transaction names, identifiers (RO-SMRT-0x), section references, and groupings are provisional and subject to assignment by the IHE-RO Technical Committee. The specific grouping for HL7 V2 SIU scheduling/check-in, and the definition of the object store (OST) actor, are open issues. See the [Open Issues](issues.html). This profile follows the SMRT Phase 1 (MVP) scope per the project sequence diagram.
+> **Editor's Note (provisional):** The transaction names, identifiers (RO-SMRT-0x), section references, and groupings are provisional and subject to assignment by the IHE-RO Technical Committee. The specific grouping for HL7 V2 SIU scheduling/check-in, and the definition of the object store (OST) actor, are open issues. See the [Open Issues](issues.html). This profile follows the SMRT Phase 1 (MVP) scope per the Shanghai F2F sequence diagram.
 
 ### X.1.2 Actors
 

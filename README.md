@@ -37,7 +37,7 @@ The profile defines new **FHIR-message** transactions between the ROIS and TMS, 
 
 ## Workflow (Use Case #1: Shared Management of Treatment)
 
-The process flow below is the Phase 1 (MVP) workflow, initiated by the ROIS. Messages shown in italics in the source are reused from other profiles/standards or are external to SMRT.
+The process flow below is the Phase 1 (MVP) workflow agreed at the Shanghai F2F meeting, initiated by the ROIS. Messages shown in italics in the source are reused from other profiles/standards or are external to SMRT.
 
 ```mermaid
 sequenceDiagram
@@ -135,4 +135,4 @@ The continuous-integration build of the canonical IHE repository is published at
 
 ## Authoring sources
 
-The profile is authored from the IHE-RO SMRT working documents (supplement, transaction worksheet, sequence diagram, and USCDI investigation) maintained in the project's Box workspace. The Mermaid diagram above mirrors the `input/images-source/usecase1-processflow.plantuml` swimlane used in the published IG.
+The profile is authored from the IHE-RO SMRT working documents (supplement, transaction worksheet, the Shanghai F2F sequence diagram, and USCDI investigation) maintained in the project's Box workspace. The Mermaid diagram above mirrors the `input/images-source/usecase1-processflow.plantuml` swimlane used in the published IG.
